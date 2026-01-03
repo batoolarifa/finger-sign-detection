@@ -47,7 +47,7 @@ finger-sign-detection/
 ├── app.py                     # Main Flask 
 ├── requirements.txt           # Python dependencies
 ├── notebook/                  # Jupyter notebook 
-│   └── finger_sign_classification.ipynb
+│   └── Finger_Sign_Detection_CNN.ipynb
 │
 ├── model/
 │   └── signs_cnn_model.keras  # Trained CNN model
