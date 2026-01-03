@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <title>Finger Sign Detection</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="card">
+
+    <!-- 🔼 IMAGE PREVIEW (JS BEFORE, FLASK AFTER) -->
+    <div id="preview-container"
+         class="preview-container
+         {% if not predicted %}hidden{% endif %}">
+
+        {% if predicted %}
+            <!-- SERVER-SIDE IMAGE AFTER PREDICTION -->
+            <img src="{{ url_for('static', filename='uploads/' + image) }}" id="preview-img">
+        {% else %}
+            <!-- CLIENT-SIDE IMAGE BEFORE PREDICTION -->
+            <img id="preview-img">
+        {% endif %}
+    </div>
+
+    <h1>Finger Sign Detection</h1>
+    <p class="subtitle">CNN-based Hand Gesture Recognition (0–5)</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label class="upload-box">
+            <input type="file"
+                   name="image"
+                   accept="image/*"
+                   onchange="showPreview(this)"
+                   required>
+            Upload Hand Image
+        </label>
+
+        <button type="submit" id="predict-btn" class="btn"
+                {% if not predicted %}disabled{% endif %}>
+            Predict
+        </button>
+    </form>
+
+    <!-- 🔵 PREDICTION OUTPUT -->
+    {% if predicted %}
+        <div class="result">
+            <h2>
+                Detected Sign:
+                <span class="yellow">{{ label }}</span>
+            </h2>
+            <p>Confidence: {{ confidence }}%</p>
+        </div>
+    {% endif %}
+
+</div>
+
+<script>
+function showPreview(input) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const previewImg = document.getElementById("preview-img");
+        const previewContainer = document.getElementById("preview-container");
+        const predictBtn = document.getElementById("predict-btn");
+
+        previewImg.src = e.target.result;
+        previewContainer.classList.remove("hidden");
+        predictBtn.disabled = false;
+    };
+    reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
