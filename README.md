@@ -38,7 +38,6 @@ This highlights transferable skills for **AI/ML, Computer Vision, and full-stack
 
 The model is trained to generalize across varying hand positions, lighting conditions, and backgrounds.
 
----
 
 ## Project Structure
 
@@ -93,7 +92,6 @@ finger-sign-detection/
 
 This modular approach ensures **clean, maintainable, and scalable code**.
 
----
 
 ## Installation & Setup
 
